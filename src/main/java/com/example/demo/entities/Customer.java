@@ -16,33 +16,33 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id")
-    public Long id;
+    private Long id;
 
     @Column(name = "customer_first_name")
-    public String firstName;
+    private String firstName;
 
     @Column(name = "customer_last_name")
-    public String lastName;
+    private String lastName;
 
     @Column(name = "address")
-    public String address;
+    private String address;
 
     @Column(name = "postal_code")
-    public String postal_code;
+    private String postal_code;
 
     @Column(name = "phone")
-    public String phone;
+    private String phone;
 
     @Column(name = "create_date")
-    public Date create_date;
+    private Date create_date;
 
     @Column(name = "last_update")
-    public Date last_update;
+    private Date last_update;
 
     @ManyToOne
     @JoinColumn(name = "division_id", nullable = false)
-    public Division division;
+    private Division division;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
-    public Set<Cart> carts;
+    private Set<Cart> carts;
 }

@@ -16,21 +16,28 @@ public class Division {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "division_id")
-    public Long id;
+    private Long id;
 
     @Column(name = "division")
-    public String division_name;
+    private String division_name;
 
     @Column(name = "create_date")
-    public Date create_date;
+    private Date create_date;
 
     @Column(name = "last_updated")
-    public Date last_updated;
+    private Date last_updated;
 
-    @ManyToOne
-    @JoinColumn(name = "country_id", nullable = false)
-    public Country country;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "country_id", nullable = false, insertable = false, updatable = false)
+    private Country country;
+
+    @Column(name = "country_id")
+    private Long country_id;
+    public void setCountry_id(Country country) {
+        setCountry_id(country.getId());
+        this.country = country;
+    }
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "division")
-    public Set<Customer> customers;
+    private Set<Customer> customers;
 }

@@ -17,28 +17,28 @@ public class Excursion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "excursion_id")
-    public Long id;
+    private Long id;
 
 
     @Column(name = "excursion_title")
-    public String excursion_title;
+    private String excursion_title;
 
     @Column(name = "excursion_price")
-    public BigDecimal excursion_price;
+    private BigDecimal excursion_price;
 
     @Column(name = "image_url")
-    public String image_url;
+    private String image_url;
 
     @Column(name = "create_date")
-    public Date create_date;
+    private Date create_date;
 
     @Column(name = "last_updated")
-    public Date last_updated;
+    private Date last_updated;
 
     @ManyToOne
     @JoinColumn(name = "vacation_id", nullable = false)
-    public Vacation vacation;
+    private Vacation vacation;
 
     @ManyToMany(mappedBy = "excursions")
-    public Set<CartItem> cartitems;
+    private Set<CartItem> cartitems;
 }
