@@ -33,7 +33,7 @@ public class Division {
 
     @Column(name = "country_id")
     private Long country_id;
-    public void setCountry_id(Country country) {
+    public void setCountry(Country country) {
         setCountry_id(country.getId());
         this.country = country;
     }
