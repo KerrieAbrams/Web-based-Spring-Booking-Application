@@ -1,8 +1,10 @@
 package com.example.demo.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -35,9 +37,11 @@ public class Customer {
     private String phone;
 
     @Column(name = "create_date")
+    @CreationTimestamp
     private Date create_date;
 
     @Column(name = "last_update")
+    @CreationTimestamp
     private Date last_update;
 
     @ManyToOne
@@ -47,8 +51,10 @@ public class Customer {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     private Set<Cart> carts = new HashSet<>();
 
-    public void add(Cart cart) {
+    public void add(Cart cart){
+
         if (cart != null) {
+
             if (carts == null) {
                 carts = new HashSet<>();
             }

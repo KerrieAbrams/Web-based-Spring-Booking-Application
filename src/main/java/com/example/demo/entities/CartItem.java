@@ -3,6 +3,7 @@ package com.example.demo.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 import java.util.Set;
@@ -33,9 +34,11 @@ public class CartItem {
     private Cart cart;
 
     @Column(name = "create_date")
+    @CreationTimestamp
     private Date create_date;
 
     @Column(name = "last_update")
+    @CreationTimestamp
     private Date last_update;
 
 }
