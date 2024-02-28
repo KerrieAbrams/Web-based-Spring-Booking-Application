@@ -1,6 +1,7 @@
 package com.example.demo.dto;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
@@ -9,6 +10,7 @@ import lombok.Setter;
 @RequiredArgsConstructor
 public class PurchaseResponse {
 
-    private final String orderTrackingNumber;
+    @NonNull
+    private String orderTrackingNumber;
 
 }
