@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.dao.CartRepository;
 import com.example.demo.dao.CustomerRepository;
 import com.example.demo.dto.Purchase;
 import com.example.demo.dto.PurchaseResponse;
@@ -8,6 +9,7 @@ import com.example.demo.entities.CartItem;
 import com.example.demo.entities.Customer;
 import com.example.demo.entities.StatusType;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -16,11 +18,13 @@ import java.util.UUID;
 @Service
 public class CheckoutServiceImpl implements CheckoutService{
 
-    private CustomerRepository customerRepository;
+    private CartRepository cartRepository;
 
-    public CheckoutServiceImpl(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
+    @Autowired
+    public CheckoutServiceImpl(CartRepository cartRepository) {
+        this.cartRepository = cartRepository;
     }
+
 
     @Override
     @Transactional
@@ -28,29 +32,40 @@ public class CheckoutServiceImpl implements CheckoutService{
 
         //get cart info from dta
         Cart cart = purchase.getCart();
-
-        //get customer info from dto
-        Customer customer = purchase.getCustomer();
-
-        //generate tracking
-        String orderTrackingNumber = generateOrderTrackingNumber();
-        cart.setOrderTrackingNumber(orderTrackingNumber);
-
-        //populate the cart with ccart items
         Set<CartItem> cartItems = purchase.getCartItems();
-        cartItems.forEach(item -> cart.add(item));
 
-        //cchange the cart status to ordered
-        cart.setStatus(StatusType.ordered);
+        if (cartItems.isEmpty() == true) {
+            String orderTrackingNumber = "Cart is Empty";
+            return new PurchaseResponse(orderTrackingNumber);
+        }
 
-        //populate the customer with cart
-        customer.add(cart);
+        else {
+            //get customer info from dto
+            Customer customer = purchase.getCustomer();
 
-        //save the cart to the correct respository
-        customerRepository.save(customer);
+            //generate tracking
+            String orderTrackingNumber = generateOrderTrackingNumber();
+            cart.setOrderTrackingNumber(orderTrackingNumber);
 
-        //return the tracking #
-        return new PurchaseResponse(orderTrackingNumber);
+            //populate the cart with ccart items
+
+            cartItems.forEach(item -> cart.add(item));
+
+            customer.add(cart);
+
+            //populate the cart with custmer
+            cart.setCustomer(customer);
+            //save the cart to the correct respository
+
+            cartRepository.save(cart);
+
+            //cchange the cart status to ordered
+            cart.setStatus(StatusType.ordered);
+
+            //return the tracking #
+            return new PurchaseResponse(orderTrackingNumber);
+
+        }
     }
 
     private String generateOrderTrackingNumber() {
