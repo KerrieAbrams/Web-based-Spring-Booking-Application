@@ -22,20 +22,20 @@ public class Vacation {
     @Column(name = "vacation_title")
     private String vacation_title;
 
-    @Column(name = "vacation_description")
+    @Column(name = "description")
     private String description;
 
-    @Column(name = "travel_price")
+    @Column(name = "travel_fare_price")
     private BigDecimal travel_price;
 
     @Column(name = "image_url")
-    private String image_url;
+    private String image_URL;
 
-    @Column(name = "created_date")
+    @Column(name = "create_date")
     private Date create_date;
 
-    @Column(name = "last_updated")
-    private Date last_updated;
+    @Column(name = "last_update")
+    private Date last_update;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "vacation")
     private Set<Excursion> excursions;

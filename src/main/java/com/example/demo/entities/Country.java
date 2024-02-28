@@ -25,8 +25,8 @@ public class Country {
     @Column(name = "create_date")
     private Date create_date;
 
-    @Column(name = "last_updated")
-    private Date last_updated;
+    @Column(name = "last_update")
+    private Date last_update;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "country")
     private Set<Division> divisions;

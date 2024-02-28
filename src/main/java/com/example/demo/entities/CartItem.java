@@ -35,7 +35,7 @@ public class CartItem {
     @Column(name = "create_date")
     private Date create_date;
 
-    @Column(name = "last_updated")
-    private Date last_updated;
+    @Column(name = "last_update")
+    private Date last_update;
 
 }

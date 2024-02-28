@@ -24,8 +24,8 @@ public class Division {
     @Column(name = "create_date")
     private Date create_date;
 
-    @Column(name = "last_updated")
-    private Date last_updated;
+    @Column(name = "last_update")
+    private Date last_update;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id", nullable = false, insertable = false, updatable = false)
