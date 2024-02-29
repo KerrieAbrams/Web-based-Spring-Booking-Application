@@ -56,11 +56,12 @@ public class CheckoutServiceImpl implements CheckoutService{
             //populate the cart with custmer
             cart.setCustomer(customer);
             //save the cart to the correct respository
+            //cchange the cart status to ordered
+            cart.setStatus(StatusType.ordered);
 
             cartRepository.save(cart);
 
-            //cchange the cart status to ordered
-            cart.setStatus(StatusType.ordered);
+
 
             //return the tracking #
             return new PurchaseResponse(orderTrackingNumber);
